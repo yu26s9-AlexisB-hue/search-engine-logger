@@ -1,4 +1,6 @@
 package com.pluralsight;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -8,39 +10,37 @@ public class Main {
     public static void main(String[] args){
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("logs.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("logs.txt", true));
+            FileWriter writer = new FileWriter("logs.txt", true);
+            LocalDateTime today = LocalDateTime.now();
+
+            DateTimeFormatter num1 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+            String SlashDate = today.format(num1) + " launch \n";
+            writer.write(SlashDate);
 
             Scanner scanner = new Scanner(System.in);
             String input;
             do{
-                LocalDateTime today = LocalDateTime.now();
-
-                DateTimeFormatter num1 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-                String SlashDate = today.format(num1) + " launch";
-                writer.write(SlashDate);
-
-
                 //Prompting the user
-                System.out.print("Enter a search term (X to exit): ");
+                System.out.print("Enter a search term (X to exit):  ");
                 input = scanner.nextLine();
 
-                if (!input.trim().isEmpty()){
-                    DateTimeFormatter num = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-                    String SlashDate1 = today.format(num) + " search : ";
-                    String searched = SlashDate1 + input;
-                    writer.write(searched);
-
-                } else{
-                    DateTimeFormatter num2 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-                    String SlashDate3 = today.format(num2) + " exit";
-                    String exit = SlashDate3 + input;
-
-                    writer.write(exit);
+                if(!input.equalsIgnoreCase("X")){
+                    String answer = formatSearchLogString(input);
+                    writer.write(answer);
                 }
 
-            } while(!input.equals("x"));
 
+
+            } while(!input.equalsIgnoreCase("x"));
+            //we are out of the loop, , log the exit!
+            DateTimeFormatter num3 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+            String SlashDate3 = today.format(num3) + " Exit \n";
+            writer.write(SlashDate3);
+
+
+
+
+            writer.close();
 
         } catch (Exception e) {
             System.out.print(e.getMessage());
@@ -49,6 +49,13 @@ public class Main {
 
 
 
+    }
+    private static @NotNull String formatSearchLogString(String searchTerm){
+        LocalDateTime today = LocalDateTime.now();
+        DateTimeFormatter num = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        String SlashDate1 = today.format(num);
+
+        return SlashDate1 + " Search: " + searchTerm + "\n";
 
     }
 }
