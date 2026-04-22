@@ -4,12 +4,22 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
-        String input;
 
-        //Prompting the user
-        System.out.print("Enter a search term (X to exit): ");
-        input = scanner.nextLine();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("logs.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("logs.txt"));
+
+            Scanner scanner = new Scanner(System.in);
+            String input;
+
+            //Prompting the user
+            System.out.print("Enter a search term (X to exit): ");
+            input = scanner.nextLine();
+
+
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
 
 
 
