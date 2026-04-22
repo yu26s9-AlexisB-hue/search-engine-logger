@@ -6,15 +6,18 @@ public class Main {
     public static void main(String[] args){
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("logs.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("logs.txt"));
+            //BufferedReader reader = new BufferedReader(new FileReader("logs.txt"));
+            //BufferedWriter writer = new BufferedWriter(new FileWriter("logs.txt"));
 
             Scanner scanner = new Scanner(System.in);
             String input;
+            do{
+                //Prompting the user
+                System.out.print("Enter a search term (X to exit): ");
+                input = scanner.nextLine();
 
-            //Prompting the user
-            System.out.print("Enter a search term (X to exit): ");
-            input = scanner.nextLine();
+
+            } while(!input.equals("x"));
 
 
         } catch (Exception e) {
